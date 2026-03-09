@@ -3,10 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Document</title>
 </head>
 <body>
-    <h1>Omae wa mou Shindeiru</h1>
+    <header class="w-[80%] mx-auto">
+        <div class="navbar bg-base-100 shadow-sm">
+            <div style="width: 30px;">
+                <img src="./assets/github-logo.png">
+            </div>
+  <div class="flex-1">
+    <a class="ghost text-xl font-bold px-4">GitHub Issues Tracker</a>
+  </div>
+  <div class="flex gap-2">
+    <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" />
+    <div class="dropdown dropdown-end">
+      <button class="btn btn-active btn-primary">+ Add New Issue</button>
+      
+    </div>
+  </div>
+</div>
+    </header>
+
     
 </body>
 </html>
