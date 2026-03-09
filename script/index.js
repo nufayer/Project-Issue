@@ -15,7 +15,6 @@ function login(){
     }
 
 }
-
 const API_URL = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
 
 let allIssues = [];
@@ -32,10 +31,7 @@ async function loadIssues() {
         console.error("Error loading issues:", error);
     }
 }
-
 loadIssues();
-
-
 
 function displayIssues(issues) {
 
@@ -44,8 +40,6 @@ function displayIssues(issues) {
 
     document.querySelector("#issue-count h2").innerText =
         issues.length + " Issues";
-
-
 
     issues.forEach(issue => {
 
@@ -69,10 +63,6 @@ function displayIssues(issues) {
             priorityClass = "bg-gray-200 text-gray-500";
         }
 
-
-
-    
-
         let statusIcon = "";
 
         if (issue.status === "open") {
@@ -89,10 +79,6 @@ function displayIssues(issues) {
             </div>
             `;
         }
-
-
-
-    
 
         let labelsHTML = "";
 
@@ -115,37 +101,24 @@ function displayIssues(issues) {
             `;
         });
 
-
-
-
         card.innerHTML = `
-
         <div class="p-4">
-
             <div class="flex items-start justify-between">
-
                 ${statusIcon}
-
                 <span class="text-xs font-semibold px-3 py-1 rounded-full ${priorityClass}">
                     ${priorityText}
                 </span>
-
             </div>
-
             <h2 class="mt-3 font-semibold text-gray-800 text-lg">
                 ${issue.title}
             </h2>
-
             <p class="text-sm text-gray-500 mt-1">
                 ${issue.description}
             </p>
-
             <div class="flex gap-2 mt-4 flex-wrap">
                 ${labelsHTML}
             </div>
-
         </div>
-
         <div class="border-t px-4 py-3 text-sm text-gray-500">
             <p>#${issue.id} by 
                 <span class="text-gray-700 font-medium">${issue.author}</span>
@@ -153,33 +126,27 @@ function displayIssues(issues) {
             <p>${new Date(issue.createdAt).toLocaleDateString()}</p>
         </div>
         `;
-
-
-
         card.addEventListener("click", () => showIssue(issue.id));
 
         container.appendChild(card);
-
     });
-
 }
 
 
-function filterIssues(type) {
-
+function filterIssues(type, button) {
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+        btn.classList.remove("btn-primary");
+    });
+    button.classList.add("btn-primary");
     if (type === "all") {
         displayIssues(allIssues);
         return;
     }
-
     const filtered = allIssues.filter(
         issue => issue.status.toLowerCase() === type
     );
-
     displayIssues(filtered);
 }
-
-
 
 document
 .getElementById("search-input")
@@ -191,39 +158,77 @@ document
         displayIssues(allIssues);
         return;
     }
-
     const res = await fetch(
         `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${text}`
     );
-
     const data = await res.json();
 
     displayIssues(data.data);
-
 });
 
 
-async function showIssue(id) {
+async function showIssue(id){
 
-    const res = await fetch(
-        `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`
-    );
-
+    const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`);
     const data = await res.json();
 
     const issue = data.data;
 
-    alert(`
-Title: ${issue.title}
 
-Description: ${issue.description}
+    document.getElementById("modal-title").innerText = issue.title;
+    document.getElementById("modal-author").innerText = issue.author;
+    document.getElementById("modal-description").innerText = issue.description;
+    document.getElementById("modal-assignee").innerText = issue.assignee;
 
-Status: ${issue.status}
+    document.getElementById("modal-date").innerText =
+        new Date(issue.createdAt).toLocaleDateString();
 
-Priority: ${issue.priority}
+    const status = document.getElementById("modal-status");
 
-Author: ${issue.author}
+    if(issue.status === "open"){
+        status.innerText = "Opened";
+        status.className = "px-3 py-1 rounded-full text-xs bg-green-500 text-white";
+    }else{
+        status.innerText = "Closed";
+        status.className = "px-3 py-1 rounded-full text-xs bg-purple-500 text-white";
+    }
 
-Labels: ${issue.labels.join(", ")}
-`);
+    const priority = document.getElementById("modal-priority");
+
+    if(issue.priority === "high"){
+        priority.innerText = "HIGH";
+        priority.className = "px-3 py-1 rounded-full text-xs font-semibold bg-red-500 text-white";
+    }
+    else if(issue.priority === "medium"){
+        priority.innerText = "MEDIUM";
+        priority.className = "px-3 py-1 rounded-full text-xs font-semibold bg-yellow-400 text-white";
+    }
+    else{
+        priority.innerText = "LOW";
+        priority.className = "px-3 py-1 rounded-full text-xs font-semibold bg-gray-400 text-white";
+    }
+
+    const labelContainer = document.getElementById("modal-labels");
+    labelContainer.innerHTML = "";
+
+    issue.labels.forEach(label=>{
+
+        let color = "bg-orange-100 text-orange-600";
+
+        if(label === "bug"){
+            color = "bg-red-100 text-red-500";
+        }
+
+        if(label === "help wanted"){
+            color = "bg-yellow-100 text-yellow-600";
+        }
+
+        labelContainer.innerHTML += `
+        <span class="text-xs font-medium px-3 py-1 rounded-full ${color}">
+            ${label.toUpperCase()}
+        </span>
+        `;
+    });
+
+    document.getElementById("issue_modal").showModal();
 }

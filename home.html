@@ -30,10 +30,9 @@
 
 <section class="w-[80%] mx-auto">
     <div>
-        <button onclick="filterIssues('all')" class="btn btn-active btn-primary">All</button>
-        <button onclick="filterIssues('open')" class="btn btn-active">Open</button>
-        <button onclick="filterIssues('closed')" class="btn btn-active">Closed</button>
-
+        <button onclick="filterIssues('all', this)" class="btn btn-primary filter-btn">All</button>
+        <button onclick="filterIssues('open', this)" class="btn filter-btn">Open</button>
+        <button onclick="filterIssues('closed', this)" class="btn filter-btn">Closed</button>
     </div>
 </section>
 
@@ -55,6 +54,42 @@
 </section>
 
 <script src="./script/index.js"></script>
+
+<dialog id="issue_modal" class="modal">
+  <div class="modal-box max-w-l shadow-xl">
+
+    <h2 id="modal-title" class="text-2xl font-bold mb-2"></h2>
+
+    <div class="flex items-center gap-3 text-sm text-gray-500 mb-4">
+      <span id="modal-status" class="px-3 py-1 rounded-full text-white text-xs"></span>
+      <span>• Opened by <span id="modal-author" class="font-medium"></span></span>
+      <span>• <span id="modal-date"></span></span>
+    </div>
+
+    <div id="modal-labels" class="flex gap-2 mb-4 flex-wrap"></div>
+
+    <p id="modal-description" class="text-gray-600 mb-6"></p>
+
+    <div class="bg-gray-100 rounded-xl p-4 flex justify-between">
+      <div>
+        <p class="text-gray-500 text-sm">Assignee:</p>
+        <p id="modal-assignee" class="font-semibold"></p>
+      </div>
+
+      <div>
+        <p class="text-gray-500 text-sm">Priority:</p>
+        <span id="modal-priority" class="px-3 py-1 rounded-full text-xs font-semibold"></span>
+      </div>
+    </div>
+
+    <div class="modal-action">
+      <form method="dialog">
+        <button class="btn btn-primary">Close</button>
+      </form>
+    </div>
+
+  </div>
+</dialog>
 
 </body>
 </html>
