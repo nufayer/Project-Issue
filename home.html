@@ -9,8 +9,8 @@
     <title>Document</title>
 </head>
 <body>
-    <header class="w-[80%] mx-auto">
-        <div class="navbar bg-base-100 shadow-sm">
+    <header>
+        <div class="navbar bg-base-100 shadow-sm px-10">
             <div style="width: 30px;">
                 <img src="./assets/github-logo.png">
             </div>
@@ -21,12 +21,79 @@
     <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" />
     <div class="dropdown dropdown-end">
       <button class="btn btn-active btn-primary">+ Add New Issue</button>
-      
     </div>
-  </div>
-</div>
-    </header>
+  </div></div>
+</header>
+
+<hr class="my-5">
+
+<section class="w-[80%] mx-auto">
+    <div>
+        <button class="btn btn-active btn-primary">All</button>
+        <button class="btn btn-active">Open</button>
+        <button class="btn btn-active">Closed</button>
+
+    </div>
+</section>
+
+<section id="issue-count" class="navbar bg-base-100 shadow-sm w-[80%] mx-auto my-2">
+    <div>
+        <div>
+            <img src="./assets/Aperture.png">
+        </div>
+    </div>
+    <div class="px-4">
+        <h2 class="font-bold">50 Issues</h2>
+        <p>Track and manage project issues</p>
+    </div>
+</section>
 
     
+<section id="issue-container" class="bg-base-100 shadow-sm w-[80%] mx-auto my-2 md:grid grid-cols-4 gap-4">
+    <div class="bg-white rounded-xl shadow-sm text-center">
+        <div class="p-4">
+      <div class="flex items-start justify-between">
+        
+      
+        <div class="flex items-center justify-center">
+          <div><img src="./assets/Open-Status.png"></div>
+        </div>
+
+       
+        <span class="text-xs font-semibold bg-red-100 text-red-500 px-3 py-1 rounded-full">
+          HIGH
+        </span>
+      </div>
+
+     
+      <h2 class="mt-3 font-semibold text-gray-800 text-lg">
+        Fix Navigation Menu On Mobile Devices
+      </h2>
+
+      <p class="text-sm text-gray-500 mt-1">
+        The navigation menu doesn't collapse properly on mobile devices...
+      </p>
+
+  
+      <div class="flex gap-2 mt-4">
+        <span class="text-xs font-medium bg-red-100 text-red-600 px-3 py-1 rounded-full">
+          BUG
+        </span>
+        <span class="text-xs font-medium bg-orange-100 text-orange-600 px-3 py-1 rounded-full">
+          HELP WANTED
+        </span>
+      </div>
+    </div>
+
+    <div class="border-t px-4 py-3 text-sm text-gray-500">
+      <p>#1 by <span class="text-gray-700 font-medium">john_doe</span></p>
+      <p>1/15/2024</p>
+    </div>
+
+
+    </div>
+
+</section>
+
 </body>
 </html>
